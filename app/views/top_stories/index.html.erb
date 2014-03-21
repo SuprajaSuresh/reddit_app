@@ -1,0 +1,14 @@
+<h1> Top Stories on Reddit</h1> 
+<div class="pagination" style="float:right">
+  <ul>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+  </ul>
+</div>
+<div>
+	<%= render :partial => 'top_stories/page_1' %>
+	<%= render :partial => 'top_stories/page_2' %>
+	<%= render :partial => 'top_stories/page_3' %>
+</div>
+<%= link_to "Sign out", signout_path, :method => :delete %>
