@@ -24,7 +24,10 @@ gem "json"
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
-gem 'ruby_reddit_api', '~> 0.2.6'
+
+gem 'redditkit', '~> 1.0.1'
+
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

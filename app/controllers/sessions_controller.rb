@@ -1,18 +1,18 @@
-require "ruby_reddit_api"
 class SessionsController < ApplicationController
   def new
   end
  
   def create
-  	if Reddit::Api.new '#{params[:username]}', '#{params[:password]}'
-	   	redirect_to '/top_stories'
-	  else 
-	    redirect_to :back
-	  end
+		client = RedditKit::Client.new "#{params[:session][:username]}", "#{params[:session][:password]}"
+		if client.signed_in?
+			redirect_to '/top_stories', :notice => "Login successful"
+		else
+			redirect_to :back, :alert => "Please try again"
+		end
   end
 
   def destroy
-  	Reddit::Base.instance_variable_set("@cookie",nil)
-  	redirect_to root_path
+  	client.sign_out
+  	redirect_to root_path, :notice => "Successfully Logged out"
   end
 end
