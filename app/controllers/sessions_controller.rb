@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
  
   def create
 		client = RedditKit::Client.new "#{params[:session][:username]}", "#{params[:session][:password]}"
+		cookies[:client_cookie] = client.cookie
 		if client.signed_in?
 			redirect_to '/top_stories', :notice => "Login successful"
 		else
@@ -12,7 +13,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-  	client.sign_out
+  	cookies[:client_cookie] = nil
   	redirect_to root_path, :notice => "Successfully Logged out"
   end
 end

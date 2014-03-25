@@ -1,8 +1,8 @@
 require 'net/http'
 class TopStoriesController < ApplicationController
 	def index
-		client = RedditKit::Client.new
-		if client.signed_in?
+		unless cookies[:client_cookie] == ""
+			@image_ext = ["jpg","gif","png"]
 			uri1 = URI("http://www.reddit.com/top.json?limit=15")
 			@stories_1 = (JSON.parse(Net::HTTP.get(uri1)))["data"]["children"]
 			uri2 = URI("http://www.reddit.com/top.json?limit=15&after=t3_#{@stories_1.last["data"]["id"]}")
