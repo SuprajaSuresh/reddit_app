@@ -23,4 +23,8 @@ $(document).ready(function(){
   	page.siblings().hide();
   	page.show();
   });
+  $('.image_link').on('click',function() {
+  	var url = $(this).data('href-location');
+  	$('#imageModal .content').html('<img src=' + url + '/>')
+  });
 });

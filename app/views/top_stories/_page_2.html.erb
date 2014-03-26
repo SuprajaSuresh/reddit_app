@@ -7,10 +7,11 @@
 	<% @stories_2.each do |child| %>
 	<tr>
 		<td>
-			<%=link_to "#{child["data"]["title"]}",child["data"]["url"],:target => "_blank" %><br/>
 			<% ext = child["data"]["url"].split('.')[-1] %>
 			<% if @image_ext.include?(ext) %>
-				<%= image_tag "#{child["data"]["url"]}",:size => "400x400" %>
+				<%= link_to child["data"]["title"], child["data"]["url"], data: {href_location: child["data"]["url"], toggle: "modal", target: '#imageModal'}, :class => "image_link" %>
+			<% else %>
+				<%=link_to "#{child["data"]["title"]}",child["data"]["url"],:target => "_blank" %>
 			<% end %>
 		</td>
 		<td><%=link_to "#{child["data"]["author"]}", "http://www.reddit.com/user/#{child["data"]["author"]}",:target => "_blank" %></td>
