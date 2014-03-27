@@ -1,17 +1,27 @@
 <h1> Top Stories on Reddit</h1> 
-<div class="pagination">
-<%= link_to "Sign out", signout_path, :method => :delete ,:style=>"float:right"%>
-  <ul>
-    <li><a href="javascript:void(0)">1</a></li>
-    <li><a href="javascript:void(0)">2</a></li>
-    <li><a href="javascript:void(0)">3</a></li>
-  </ul>
-</div>
-<div>
-	<%= render :partial => 'top_stories/page_1' %>
-	<%= render :partial => 'top_stories/page_2' %>
-	<%= render :partial => 'top_stories/page_3' %>
-</div>
+<%= link_to "Sign out", signout_path, :method => :delete, :class =>"right" %>
+<%= will_paginate @stories %> 
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <th id="title_column">Title</th>
+    <th>Posted By</th>
+    <th>Posted On</th>
+  </tr>
+  <% @stories.each do |child| %>
+    <tr>
+      <td>
+        <% ext = child["data"]["url"].split('.')[-1] %>
+        <% if @image_ext.include?(ext) %>
+          <%= link_to child["data"]["title"], child["data"]["url"], data: {href_location: child["data"]["url"], toggle: "modal", target: '#imageModal'}, :class => "image_link" %> <i class="icon-picture"></i>
+        <% else %>
+          <%=link_to "#{child["data"]["title"]}",child["data"]["url"],:target => "_blank" %>
+        <% end %>
+      </td>
+      <td><%=link_to "#{child["data"]["author"]}", "http://www.reddit.com/user/#{child["data"]["author"]}",:target => "_blank" %></td>
+      <td><%= formatted_time(child["data"]["created_utc"]) %></td>
+    </tr>
+  <% end %>
 
 <div id="imageModal" class="modal hide fade">
   <div class="modal-header">

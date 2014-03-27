@@ -16,13 +16,6 @@
 //= require_tree .
 
 $(document).ready(function(){
-  $('.pagination>ul>li>a').on('click', function() {
-  	var number = $(this).html();
-  	var page = $("#top_stories_"+number)
-  	console.log(page.siblings())
-  	page.siblings().hide();
-  	page.show();
-  });
   $('.image_link').on('click',function() {
   	var url = $(this).data('href-location');
   	$('#imageModal .content').html('<img src=' + url + '/>')
