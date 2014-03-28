@@ -5,10 +5,13 @@ class TopStoriesController < ApplicationController
 			@image_ext = ["jpg","gif","png","tif","bmp"]
 			uri = URI('http://www.reddit.com/top.json?limit=45')
 			@response = JSON.parse(Net::HTTP.get(uri))
-			@results = @response["data"]["children"]
+			@res = Hashie::Mash.new @response
+			@results = @res.data.children
 			@stories = @results.paginate(:page => params[:page], :per_page => 15)
 		else
 			redirect_to root_path, :alert => "Please log in"
 		end
 	end
 end
+
+

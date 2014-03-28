@@ -27,6 +27,8 @@ gem "twitter-bootstrap-rails"
 
 gem 'redditkit', '~> 1.0.1'
 gem 'will_paginate', '~> 3.0'
+gem 'hashie', '~> 2.0.5'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

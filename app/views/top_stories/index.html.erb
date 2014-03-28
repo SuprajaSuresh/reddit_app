@@ -13,13 +13,13 @@
       <td>
         <% ext = child["data"]["url"].split('.')[-1] %>
         <% if @image_ext.include?(ext) %>
-          <%= link_to child["data"]["title"], child["data"]["url"], data: {href_location: child["data"]["url"], toggle: "modal", target: '#imageModal'}, :class => "image_link" %> <i class="icon-picture"></i>
+          <%= link_to child.data.title, child.data.url, data: {href_location: child.data.url, toggle: "modal", target: '#imageModal'}, :class => "image_link" %> <i class="icon-picture"></i>
         <% else %>
-          <%=link_to "#{child["data"]["title"]}",child["data"]["url"],:target => "_blank" %>
+          <%=link_to child.data.title ,child.data.url,:target => "_blank" %>
         <% end %>
       </td>
-      <td><%=link_to "#{child["data"]["author"]}", "http://www.reddit.com/user/#{child["data"]["author"]}",:target => "_blank" %></td>
-      <td><%= formatted_time(child["data"]["created_utc"]) %></td>
+      <td><%=link_to child.data.author, "http://www.reddit.com/user/#{child.data.author}",:target => "_blank" %></td>
+      <td><%= formatted_time(child.data.created_utc) %></td>
     </tr>
   <% end %>
 </table>
