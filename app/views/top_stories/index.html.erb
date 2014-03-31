@@ -1,6 +1,15 @@
 <h1> Top Stories on Reddit</h1> 
 <%= link_to "Sign out", signout_path, :method => :delete, :class =>"right" %>
-<%= will_paginate @stories %> 
+
+<%= link_to "Previous", 
+            :controller => "top_stories", 
+            :action => "index", 
+            :before => "#{@stories.first.data.id}" %>
+-
+<%= link_to "Next", 
+            :controller => "top_stories", 
+            :action => "index", 
+            :after => "#{@res.data.after}" %>
 
 <table class="table table-striped table-bordered">
   <tr>
@@ -11,7 +20,7 @@
   <% @stories.each do |child| %>
     <tr>
       <td>
-        <% ext = child["data"]["url"].split('.')[-1] %>
+        <% ext = child.data.url.split('.')[-1] %>
         <% if @image_ext.include?(ext) %>
           <%= link_to child.data.title, child.data.url, data: {href_location: child.data.url, toggle: "modal", target: '#imageModal'}, :class => "image_link" %> <i class="icon-picture"></i>
         <% else %>
