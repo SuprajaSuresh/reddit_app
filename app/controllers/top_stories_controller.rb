@@ -3,6 +3,7 @@ class TopStoriesController < ApplicationController
 	def index
 		unless cookies[:client_cookie] == ""
 			@image_ext = ["jpg","jpeg","gif","png","tif","bmp"]
+
 			if params[:before]
 				before_key = params[:before]
 				uri = URI ("http://www.reddit.com/top.json?limit=15&before=t3_#{before_key}")
@@ -15,6 +16,9 @@ class TopStoriesController < ApplicationController
 			@response = JSON.parse(Net::HTTP.get(uri))
 			@res = Hashie::Mash.new @response
 			@stories = @res.data.children
+			if @stories.empty?
+				redirect_to :back, :notice => "These are the top-most stories"
+			end
 		else
 			redirect_to root_path, :alert => "Please log in"
 		end
