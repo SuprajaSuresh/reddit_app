@@ -17,7 +17,7 @@ class TopStoriesController < ApplicationController
 			@res = Hashie::Mash.new @response
 			@stories = @res.data.children
 			if @stories.empty?
-				redirect_to :back, :notice => "These are the top-most stories"
+				redirect_to top_stories_path, :notice => "These are the top-most stories"
 			end
 		else
 			redirect_to root_path, :alert => "Please log in"
