@@ -1,15 +1,18 @@
-class SessionsController < ApplicationController
+  class SessionsController < ApplicationController
   def new
   end
  
   def create
-		client = RedditKit::Client.new "#{params[:session][:username]}", "#{params[:session][:password]}"
-		cookies[:client_cookie] = client.cookie
-		if client.signed_in?
-			redirect_to '/top_stories', :notice => "Login successful"
-		else
-			redirect_to :back, :alert => "Please try again"
-		end
+    uri = URI("http://www.reddit.com/api/login/#{params[:session][:username]}")
+    res = Net::HTTP.post_form(uri, 'user' => "#{params[:session][:username]}", 'passwd' => "#{params[:session][:password]}", 'api_type' => 'json')
+    result = JSON.parse(res.body)
+    response = Hashie::Mash.new result
+    if response.json.errors.empty?
+      cookies[:client_cookie] = response.json.data.cookie
+      redirect_to '/top_stories', :notice => "Login successful"
+    else
+      redirect_to :back, :alert => "Please try again"
+    end
   end
 
   def destroy
